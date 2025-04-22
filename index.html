@@ -8,43 +8,34 @@
 </head>
 <body>
     <div class="calculator">
-        <div class="display">-</div>
+        <input type="text" id="display" readonly>
         <div class="buttons">
-            <button class="operator" onclick="clearDisplay()">AC</button>
-            <button class="operator" onclick="appendToDisplay('(')">(</button>
-            <button class="operator" onclick="appendToDisplay(')')">)</button>
-            <button class="operator" onclick="appendToDisplay('/')">÷</button>
-
+            <!-- Rows of buttons remain the same as original structure -->
+            <button class="operator" onclick="appendToDisplay('√(')">√</button>
             <button onclick="appendToDisplay('7')">7</button>
             <button onclick="appendToDisplay('8')">8</button>
             <button onclick="appendToDisplay('9')">9</button>
-            <button class="operator" onclick="appendToDisplay('*')">×</button>
+            <button class="clear" onclick="clearDisplay()">AC</button>
 
+            <button class="operator" onclick="appendToDisplay('π')">π</button>
             <button onclick="appendToDisplay('4')">4</button>
             <button onclick="appendToDisplay('5')">5</button>
             <button onclick="appendToDisplay('6')">6</button>
-            <button class="operator" onclick="appendToDisplay('-')">-</button>
+            <button class="operator" onclick="handleParenthesis()">( )</button>
 
+            <button class="operator" onclick="appendToDisplay('λ')">λ</button>
             <button onclick="appendToDisplay('1')">1</button>
             <button onclick="appendToDisplay('2')">2</button>
             <button onclick="appendToDisplay('3')">3</button>
-            <button class="operator" onclick="appendToDisplay('+')">+</button>
+            <button class="operator" onclick="appendToDisplay('%')">%</button>
 
+            <button class="operator" onclick="appendToDisplay('!')">!</button>
             <button onclick="appendToDisplay('0')">0</button>
             <button onclick="appendToDisplay('.')">.</button>
-            <button class="operator" onclick="calculatePercentage()">%</button>
+            <button class="operator" onclick="appendToDisplay('+')">+</button>
             <button class="equals" onclick="calculate()">=</button>
-
-            <!-- Sidebar buttons -->
-            <div class="sidebar">
-                <button class="operator" onclick="calculateSquareRoot()">√</button>
-                <button class="operator" onclick="appendToDisplay('Math.PI')">π</button>
-                <button class="operator" onclick="appendToDisplay('**')">^</button>
-                <button class="operator" onclick="factorial()">!</button>
-                <button class="operator" onclick="backspace()">⌫</button>
-            </div>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
