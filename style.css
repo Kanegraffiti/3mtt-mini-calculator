@@ -3,22 +3,23 @@
     background-color: #f0f0f0;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    margin: 20px auto;
 }
 
 #display {
-    width: 100%;
+    width: calc(100% - 20px);
     height: 60px;
     margin-bottom: 20px;
-    font-size: 24px;
-    text-align: right;
     padding: 10px;
-    box-sizing: border-box;
+    font-size: 28px;
+    text-align: right;
     border: 2px solid #ccc;
     border-radius: 5px;
+    background-color: white;
 }
 
-.buttons {
+.button-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 10px;
@@ -26,16 +27,15 @@
 
 button {
     padding: 15px;
-    font-size: 18px;
+    font-size: 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #e0e0e0;
-    transition: background-color 0.2s;
+    transition: all 0.2s ease;
 }
 
 button:hover {
-    background-color: #d0d0d0;
+    filter: brightness(90%);
 }
 
 .operator {
@@ -45,10 +45,13 @@ button:hover {
 
 .clear {
     background-color: #ff3b30;
-    color: white;
 }
 
 .equals {
     background-color: #34c759;
-    color: white;
+    grid-column: span 2;
+}
+
+button:active {
+    transform: scale(0.95);
 }
