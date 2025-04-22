@@ -1,5 +1,6 @@
 const display = document.getElementById('display');
 
+// Button click handlers
 function appendToDisplay(value) {
     display.value += value;
 }
@@ -19,30 +20,27 @@ function calculate() {
     try {
         let expression = display.value
             .replace(/π/g, Math.PI)
-            .replace(/√/g, 'Math.sqrt')
-            .replace(/%/g, '/100');
+            .replace(/√\(/g, 'Math.sqrt(')
+            .replace(/%/g, '/100')
+            .replace(/λ/g, 'Math.log(');
 
-        // Handle factorial calculation
+        // Handle factorial
         if(expression.includes('!')) {
-            const numbers = expression.split('!');
-            const num = parseFloat(numbers[0]);
-            if(num >= 0 && Number.isInteger(num)) {
-                let result = 1;
-                for(let i = 2; i <= num; i++) result *= i;
-                display.value = result;
+            const num = parseFloat(expression.split('!')[0]);
+            if(Number.isInteger(num) && num >= 0) {
+                display.value = factorial(num);
                 return;
             }
         }
 
-        // Handle lambda (example: simple squared)
-        if(expression.includes('λ')) {
-            const num = parseFloat(expression.split('λ')[1]);
-            display.value = num * num;
-            return;
-        }
-
-        display.value = eval(expression);
+        // Evaluate expression
+        const result = eval(expression);
+        display.value = result % 1 === 0 ? result : result.toFixed(4);
     } catch (error) {
         display.value = 'Error';
     }
+}
+
+function factorial(n) {
+    return n <= 1 ? 1 : n * factorial(n - 1);
 }
