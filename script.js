@@ -1,63 +1,48 @@
-let display = document.querySelector('.display');
-let currentInput = '';
+const display = document.getElementById('display');
 
 function appendToDisplay(value) {
-    currentInput += value;
-    display.textContent = currentInput || '-';
+    display.value += value;
 }
 
 function clearDisplay() {
-    currentInput = '';
-    display.textContent = '-';
+    display.value = '';
 }
 
-function backspace() {
-    currentInput = currentInput.slice(0, -1);
-    display.textContent = currentInput || '-';
+function handleParenthesis() {
+    const current = display.value;
+    const open = (current.match(/\(/g) || []).length;
+    const close = (current.match(/\)/g) || []).length;
+    display.value += open <= close ? '(' : ')';
 }
 
 function calculate() {
     try {
-        currentInput = eval(currentInput).toString();
-        display.textContent = currentInput;
-    } catch (error) {
-        display.textContent = 'Error';
-        currentInput = '';
-    }
-}
+        let expression = display.value
+            .replace(/π/g, Math.PI)
+            .replace(/√/g, 'Math.sqrt')
+            .replace(/%/g, '/100');
 
-function calculateSquareRoot() {
-    try {
-        currentInput = Math.sqrt(eval(currentInput)).toString();
-        display.textContent = currentInput;
-    } catch (error) {
-        display.textContent = 'Error';
-        currentInput = '';
-    }
-}
-
-function calculatePercentage() {
-    try {
-        currentInput = (eval(currentInput) / 100).toString();
-        display.textContent = currentInput;
-    } catch (error) {
-        display.textContent = 'Error';
-        currentInput = '';
-    }
-}
-
-function factorial() {
-    try {
-        let num = eval(currentInput);
-        if (num < 0) throw new Error();
-        let result = 1;
-        for (let i = 2; i <= num; i++) {
-            result *= i;
+        // Handle factorial calculation
+        if(expression.includes('!')) {
+            const numbers = expression.split('!');
+            const num = parseFloat(numbers[0]);
+            if(num >= 0 && Number.isInteger(num)) {
+                let result = 1;
+                for(let i = 2; i <= num; i++) result *= i;
+                display.value = result;
+                return;
+            }
         }
-        currentInput = result.toString();
-        display.textContent = currentInput;
+
+        // Handle lambda (example: simple squared)
+        if(expression.includes('λ')) {
+            const num = parseFloat(expression.split('λ')[1]);
+            display.value = num * num;
+            return;
+        }
+
+        display.value = eval(expression);
     } catch (error) {
-        display.textContent = 'Error';
-        currentInput = '';
+        display.value = 'Error';
     }
 }
