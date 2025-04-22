@@ -4,73 +4,70 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #808080; /* Gray background */
+    background-color: #1a1a1a;
     font-family: Arial, sans-serif;
 }
+
 .calculator {
-    background-color: #000; /* Black calculator body */
+    background-color: #2a2a2a;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 320px;
+}
+
+.display {
+    background-color: #3a3a3a;
+    color: white;
+    font-size: 2em;
+    text-align: right;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-#display {
-    width: 100%;
-    height: 50px;
-    background-color: #fff; /* White display */
-    border: none;
-    border-radius: 5px;
     margin-bottom: 10px;
-    padding: 10px;
-    font-size: 24px;
-    text-align: right;
-    box-sizing: border-box;
-    color: #000; /* Black text in display */
+    overflow: hidden;
 }
+
 .buttons {
-    display: grid;
-    grid-template-columns: repeat(4, 60px);
+    display: flex;
+    flex-wrap: wrap;
     gap: 10px;
 }
+
 button {
-    background-color: #2ecc71; /* Green buttons */
-    color: #fff; /* White text on buttons */
+    width: 60px;
+    height: 60px;
     border: none;
-    border-radius: 5px;
-    padding: 15px;
-    font-size: 18px;
+    border-radius: 50%;
+    font-size: 1.2em;
     cursor: pointer;
-    transition: background-color 0.2s;
+    background-color: #4a4a4a;
+    color: white;
 }
+
 button:hover {
-    background-color: #27ae60; /* Darker green on hover */
+    background-color: #5a5a5a;
 }
-button:active {
-    background-color: #219653; /* Even darker green on click */
+
+.operator {
+    background-color: #6a6a6a;
 }
-.conversion {
-    margin-top: 20px;
-    text-align: center;
+
+.operator:hover {
+    background-color: #7a7a7a;
 }
-.conversion h3 {
-    color: #fff; /* White text for heading */
-    margin: 0 0 10px;
+
+.equals {
+    background-color: #00c4b4;
 }
-.conversion select, .conversion input {
-    padding: 5px;
-    margin: 5px;
-    border-radius: 5px;
-    border: none;
-    background-color: #fff; /* White input background */
-    color: #000; /* Black text in inputs */
+
+.equals:hover {
+    background-color: #00d4c4;
 }
-.conversion button {
-    background-color: #2ecc71; /* Green convert button */
-    color: #fff; /* White text */
-}
-.conversion button:hover {
-    background-color: #27ae60; /* Darker green on hover */
-}
-.conversion p {
-    color: #fff; /* White text for result */
-    margin: 5px 0;
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: absolute;
+    left: 20px;
 }
