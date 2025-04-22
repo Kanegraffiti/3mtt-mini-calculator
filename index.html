@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini Calculator</title>
+    <title>3MTT Mini Calculator</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="calculator">
         <input type="text" id="display" readonly>
-        <div class="buttons">
-            <!-- Rows of buttons remain the same as original structure -->
+        <div class="button-grid">
             <button class="operator" onclick="appendToDisplay('√(')">√</button>
             <button onclick="appendToDisplay('7')">7</button>
             <button onclick="appendToDisplay('8')">8</button>
@@ -36,6 +35,6 @@
             <button class="equals" onclick="calculate()">=</button>
         </div>
     </div>
-    <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
