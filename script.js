@@ -1,73 +1,63 @@
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #1a1a1a;
-    font-family: Arial, sans-serif;
+let display = document.querySelector('.display');
+let currentInput = '';
+
+function appendToDisplay(value) {
+    currentInput += value;
+    display.textContent = currentInput || '-';
 }
 
-.calculator {
-    background-color: #2a2a2a;
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    width: 320px;
+function clearDisplay() {
+    currentInput = '';
+    display.textContent = '-';
 }
 
-.display {
-    background-color: #3a3a3a;
-    color: white;
-    font-size: 2em;
-    text-align: right;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    overflow: hidden;
+function backspace() {
+    currentInput = currentInput.slice(0, -1);
+    display.textContent = currentInput || '-';
 }
 
-.buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+function calculate() {
+    try {
+        currentInput = eval(currentInput).toString();
+        display.textContent = currentInput;
+    } catch (error) {
+        display.textContent = 'Error';
+        currentInput = '';
+    }
 }
 
-button {
-    width: 60px;
-    height: 60px;
-    border: none;
-    border-radius: 50%;
-    font-size: 1.2em;
-    cursor: pointer;
-    background-color: #4a4a4a;
-    color: white;
+function calculateSquareRoot() {
+    try {
+        currentInput = Math.sqrt(eval(currentInput)).toString();
+        display.textContent = currentInput;
+    } catch (error) {
+        display.textContent = 'Error';
+        currentInput = '';
+    }
 }
 
-button:hover {
-    background-color: #5a5a5a;
+function calculatePercentage() {
+    try {
+        currentInput = (eval(currentInput) / 100).toString();
+        display.textContent = currentInput;
+    } catch (error) {
+        display.textContent = 'Error';
+        currentInput = '';
+    }
 }
 
-.operator {
-    background-color: #6a6a6a;
-}
-
-.operator:hover {
-    background-color: #7a7a7a;
-}
-
-.equals {
-    background-color: #00c4b4;
-}
-
-.equals:hover {
-    background-color: #00d4c4;
-}
-
-.sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    position: absolute;
-    left: 20px;
+function factorial() {
+    try {
+        let num = eval(currentInput);
+        if (num < 0) throw new Error();
+        let result = 1;
+        for (let i = 2; i <= num; i++) {
+            result *= i;
+        }
+        currentInput = result.toString();
+        display.textContent = currentInput;
+    } catch (error) {
+        display.textContent = 'Error';
+        currentInput = '';
+    }
 }
