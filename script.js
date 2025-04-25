@@ -1,46 +1,98 @@
-const display = document.getElementById('display');
+(() => {
+  const display = document.getElementById('display');
+  let current = '';
+  let previous = '';
+  let operator = null;
 
-// Button click handlers
-function appendToDisplay(value) {
-    display.value += value;
-}
+  function updateDisplay(value) {
+    display.textContent = value || '0';
+  }
 
-function clearDisplay() {
-    display.value = '';
-}
+  function clearAll() {
+    current = '';
+    previous = '';
+    operator = null;
+    updateDisplay('');
+  }
 
-function handleParenthesis() {
-    const current = display.value;
-    const open = (current.match(/\(/g) || []).length;
-    const close = (current.match(/\)/g) || []).length;
-    display.value += open <= close ? '(' : ')';
-}
+  function appendDigit(d) {
+    if (d === '.' && current.includes('.')) return;
+    current = (current || '') + d;
+    updateDisplay(current);
+  }
 
-function calculate() {
-    try {
-        let expression = display.value
-            .replace(/π/g, Math.PI)
-            .replace(/√\(/g, 'Math.sqrt(')
-            .replace(/%/g, '/100')
-            .replace(/λ/g, 'Math.log(');
-
-        // Handle factorial
-        if(expression.includes('!')) {
-            const num = parseFloat(expression.split('!')[0]);
-            if(Number.isInteger(num) && num >= 0) {
-                display.value = factorial(num);
-                return;
-            }
-        }
-
-        // Evaluate expression
-        const result = eval(expression);
-        display.value = result % 1 === 0 ? result : result.toFixed(4);
-    } catch (error) {
-        display.value = 'Error';
+  function handleParenthesis() {
+    const lastChar = current.slice(-1);
+    if (lastChar === '(') {
+      current += ')';
+    } else {
+      current += '(';
     }
-}
+    updateDisplay(current);
+  }
 
-function factorial(n) {
-    return n <= 1 ? 1 : n * factorial(n - 1);
-}
+  function chooseOperator(op) {
+    if (!current) return;
+    if (previous) compute();
+    operator = op;
+    previous = current;
+    current = '';
+  }
+
+  function compute() {
+    try {
+      const expr = previous + operatorMap(operator) + current;
+      const result = eval(expr);
+      current = String(result);
+      operator = null;
+      previous = '';
+      updateDisplay(current);
+    } catch {
+      updateDisplay('Error');
+    }
+  }
+
+  function operatorMap(op) {
+    switch(op) {
+      case '×': return '*';
+      case '÷': return '/';
+      case '−': return '-';
+      default: return op;
+    }
+  }
+
+  function handlePercent() {
+    if (!current) return;
+    current = String(parseFloat(current) / 100);
+    updateDisplay(current);
+  }
+
+  function handleDelete() {
+    current = current.slice(0, -1);
+    updateDisplay(current);
+  }
+
+  document.querySelector('.buttons').addEventListener('click', e => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    const action = btn.dataset.action;
+    const val = btn.dataset.value;
+    switch (action) {
+      case 'digit': appendDigit(val); break;
+      case 'parenthesis': handleParenthesis(); break;
+      case 'operator': chooseOperator(val); break;
+      case 'equals': compute(); break;
+      case 'clear': clearAll(); break;
+      case 'percent': handlePercent(); break;
+    }
+  });
+
+  document.querySelector('.top-bar').addEventListener('click', e => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    if (btn.dataset.action === 'delete') handleDelete();
+  });
+
+  // init
+  clearAll();
+})();
