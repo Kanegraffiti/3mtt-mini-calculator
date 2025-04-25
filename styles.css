@@ -1,0 +1,97 @@
+/* RESET & BASE */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background: #000;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* CALCULATOR WRAPPER */
+.calculator {
+  width: 100%;
+  max-width: 360px;
+  padding: 1rem;
+}
+
+/* TOP BAR ICONS */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.icon-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #FECB2F;
+  cursor: pointer;
+}
+
+/* DISPLAY */
+.display {
+  background: #111;
+  color: #FECB2F;
+  font-size: 2.5rem;
+  text-align: right;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  min-height: 3.5rem;
+  overflow-x: auto;
+}
+
+/* BUTTON GRID */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+/* BUTTON BASE */
+.btn {
+  background: #333;
+  border: none;
+  border-radius: 50%;
+  height: 64px;
+  font-size: 1.5rem;
+  color: #FECB2F;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+.btn:active {
+  transform: scale(0.95);
+}
+
+/* ZERO BUTTON */
+.btn-zero {
+  grid-column: span 2;
+  border-radius: 2rem;
+}
+
+/* FUNCTION BUTTONS */
+.btn-function {
+  background: #444;
+}
+.btn-function[data-action="clear"] {
+  color: #FF3B30;
+}
+
+/* OPERATOR BUTTONS */
+.btn-operator {
+  background: #222;
+  color: #FF9F9A;
+}
+
+/* EQUALS BUTTON */
+.btn-equals {
+  background: #FF9F9A;
+  color: #000;
+}
